@@ -1,53 +1,37 @@
 # AdVantage Studio - PRD
 
 ## Original Problem Statement
-Build a web-based Ad Preview & Visualization Dashboard that enables users to add visuals (images, videos), captions, CTAs, buttons, and links, then preview ads across multiple social media platforms on both mobile and web. Supports downloading previews as PNG/PDF.
+Build a web-based Ad Preview & Visualization Dashboard with campaign objectives and ad format awareness. Different objectives (awareness/reach, traffic, sales, leads, etc.) change the preview — e.g. reach ads hide CTA buttons. Different formats (carousel, story, video, single image) render completely different preview layouts. Supports 9 platforms.
 
 ## Architecture
-- **Frontend**: React + Tailwind CSS + shadcn/ui, html-to-image for PNG export, jsPDF for PDF export
-- **Backend**: FastAPI + MongoDB + Emergent Object Storage for file uploads
-- **No Authentication**: Open tool, no sign-in required
-
-## User Personas
-- Digital marketers creating multi-platform ad campaigns
-- Social media managers previewing ad creatives
-- Ad agencies building client presentations
-- Small business owners designing their own ads
-
-## Core Requirements
-- Upload images/videos via drag & drop
-- Edit ad content (brand name, handle, caption, headline, description, CTA)
-- Preview ads on 9 platforms: Facebook, Instagram, Twitter/X, LinkedIn, TikTok, YouTube, Pinterest, Snapchat, Google Ads
-- Toggle between mobile and desktop preview modes
-- Export previews as PNG or PDF
+- **Frontend**: React + Tailwind CSS + shadcn/ui + react-icons, html-to-image/jsPDF for export
+- **Backend**: FastAPI + MongoDB + Emergent Object Storage
+- **No Authentication**: Open tool
 
 ## What's Been Implemented (2026-03-06)
+### Phase 1 (MVP)
 - Full backend with file upload/serve/list/delete endpoints
-- Emergent Object Storage integration for media files
-- Dashboard with left sidebar (ad editor) + right panel (preview canvas)
-- 9 realistic platform preview components with phone/browser frames
-- Mobile/Desktop device toggle
-- PNG/PDF export via html-to-image + jsPDF
-- All tests passing (100% backend + frontend)
+- Emergent Object Storage integration
+- Dashboard with sidebar + preview canvas
+- 9 platform previews with phone/browser frames
+- Mobile/Desktop toggle, PNG/PDF export
+
+### Phase 2 (Campaign Objectives + Formats)
+- 7 campaign objectives: Traffic, Sales, Leads, Awareness/Reach, Engagement, App Installs, Video Views
+- Objective-aware previews: CTA hidden for awareness/engagement, amber warnings shown
+- Platform-specific ad formats:
+  - Facebook/Instagram: Single Image, Carousel, Video, Story
+  - Twitter/X: Single Image, Carousel, Video
+  - LinkedIn: Single Image, Carousel (Document), Video
+  - TikTok: In-Feed Video, Spark Ad, TopView
+  - YouTube: In-Stream (Skip), In-Feed, Shorts, Bumper (6s)
+  - Pinterest: Standard Pin, Carousel, Video Pin
+  - Snapchat: Single, Story, Collection
+  - Google Ads: Search, Display, Shopping
+- Carousel card editor (add/remove cards, per-card image upload, headlines)
+- Preview indicator showing current format + objective
 
 ## Prioritized Backlog
-### P0 (Critical)
-- All implemented
-
-### P1 (High)
-- Campaign save/load to MongoDB
-- Multiple ad creatives per campaign
-- Batch export all platforms at once
-
-### P2 (Medium)
-- Ad format variations per platform (feed vs story vs reel)
-- Custom dimensions/aspect ratios
-- Video preview with playback controls
-- Template library with pre-made ad layouts
-
-### P3 (Nice to have)
-- AI-powered caption suggestions
-- A/B testing preview (compare two versions side by side)
-- Color palette extractor from uploaded images
-- Share preview links with clients
-- Campaign analytics integration
+### P1: Campaign save/load, batch export all platforms, template library
+### P2: A/B testing preview (side-by-side), video playback controls, custom dimensions
+### P3: AI caption suggestions, share preview links, color palette extractor
