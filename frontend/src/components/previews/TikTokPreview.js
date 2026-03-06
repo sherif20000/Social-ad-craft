@@ -17,7 +17,7 @@ export const TikTokPreview = ({ adData }) => {
         {mediaType === 'video' && mediaUrl ? (
           <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
         ) : (
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       </div>

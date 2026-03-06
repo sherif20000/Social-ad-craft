@@ -41,7 +41,7 @@ export const FacebookPreview = ({ adData }) => {
     return (
       <div data-testid="facebook-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
         </div>
         <div className="absolute top-3 left-3 right-3 z-10 flex items-center gap-2">
@@ -82,7 +82,7 @@ export const FacebookPreview = ({ adData }) => {
                     src={card.imageUrl || CAROUSEL_PLACEHOLDERS[i % CAROUSEL_PLACEHOLDERS.length]}
                     alt=""
                     className="w-full aspect-square object-cover"
-                    crossOrigin="anonymous"
+                   
                   />
                   <div className="p-2.5 bg-zinc-50 flex items-center justify-between">
                     <div className="flex-1 min-w-0 mr-2">
@@ -122,7 +122,7 @@ export const FacebookPreview = ({ adData }) => {
         {mediaType === 'video' || adFormat === 'video' ? (
           <AutoPlayVideo src={displayMedia} className="w-full h-full object-cover" />
         ) : (
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
         )}
         {adFormat === 'video' && (
           <div className="absolute inset-0 flex items-center justify-center">

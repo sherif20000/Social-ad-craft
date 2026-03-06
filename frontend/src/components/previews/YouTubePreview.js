@@ -20,7 +20,7 @@ export const YouTubePreview = ({ adData }) => {
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </div>
@@ -51,7 +51,7 @@ export const YouTubePreview = ({ adData }) => {
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
           )}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 bg-black/60 rounded-full flex items-center justify-center">
@@ -102,7 +102,7 @@ export const YouTubePreview = ({ adData }) => {
   return (
     <div data-testid="youtube-preview" className="bg-white font-sans text-[14px]">
       <div className="w-full aspect-video bg-zinc-900 relative overflow-hidden">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 bg-black/60 rounded-full flex items-center justify-center">
             <svg viewBox="0 0 24 24" className="w-7 h-7 text-white ml-1" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>

@@ -50,7 +50,7 @@ export const InstagramPreview = ({ adData }) => {
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         </div>
@@ -98,7 +98,7 @@ export const InstagramPreview = ({ adData }) => {
             src={cards[carouselIndex]?.imageUrl || CAROUSEL_PLACEHOLDERS[carouselIndex % CAROUSEL_PLACEHOLDERS.length]}
             alt=""
             className="w-full aspect-square object-cover"
-            crossOrigin="anonymous"
+           
           />
           {/* Navigation arrows */}
           {carouselIndex > 0 && (
@@ -141,7 +141,7 @@ export const InstagramPreview = ({ adData }) => {
     <div data-testid="instagram-preview" className="bg-white font-sans text-[14px]">
       <ProfileHeader />
       <div className="w-full aspect-square bg-zinc-100 relative overflow-hidden">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
       </div>
       <ActionRow />
       <div className="px-3 pt-1.5"><p className="font-semibold text-[13px] text-zinc-900">1,234 likes</p></div>

@@ -48,7 +48,7 @@ export const TwitterPreview = ({ adData }) => {
                   <img
                     src={card.imageUrl || CAROUSEL_PLACEHOLDERS[i % CAROUSEL_PLACEHOLDERS.length]}
                     alt="" className="w-full aspect-[4/3] object-cover"
-                    crossOrigin="anonymous"
+                   
                   />
                   <div className="px-2.5 py-2 bg-white">
                     <p className="font-medium text-[12px] text-zinc-900 truncate">{card.headline || headline || 'Headline'}</p>
@@ -64,7 +64,7 @@ export const TwitterPreview = ({ adData }) => {
                 {mediaType === 'video' && mediaUrl ? (
                   <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
                 ) : (
-                  <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                  <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
                 )}
                 {adFormat === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">

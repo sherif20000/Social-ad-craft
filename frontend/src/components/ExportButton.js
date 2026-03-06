@@ -11,19 +11,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { toast } from '@/components/ui/sonner';
 
+const captureElement = async (node) => {
+  const options = { quality: 0.95, pixelRatio: 2 };
+  // First call warms up the image cache (may fail silently on CORS images)
+  try { await toPng(node, options); } catch {}
+  // Second call uses the warmed cache and produces clean output
+  return toPng(node, options);
+};
+
 export const ExportButton = ({ previewRef, platform }) => {
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExportPng = async () => {
-    if (!previewRef?.current) return;
+    if (!previewRef?.current) {
+      toast.error('Preview not ready. Please wait a moment and try again.');
+      return;
+    }
     setIsExporting(true);
     try {
-      const dataUrl = await toPng(previewRef.current, {
-        quality: 0.95,
-        pixelRatio: 2,
-        cacheBust: true,
-        skipAutoScale: true,
-      });
+      const dataUrl = await captureElement(previewRef.current);
       const link = document.createElement('a');
       link.download = `ad-preview-${platform}.png`;
       link.href = dataUrl;
@@ -31,22 +37,20 @@ export const ExportButton = ({ previewRef, platform }) => {
       toast.success('PNG downloaded');
     } catch (err) {
       console.error('PNG export failed:', err);
-      toast.error('Export failed. Try again.');
+      toast.error('Export failed. Try switching to a different platform and back, then retry.');
     } finally {
       setIsExporting(false);
     }
   };
 
   const handleExportPdf = async () => {
-    if (!previewRef?.current) return;
+    if (!previewRef?.current) {
+      toast.error('Preview not ready. Please wait a moment and try again.');
+      return;
+    }
     setIsExporting(true);
     try {
-      const dataUrl = await toPng(previewRef.current, {
-        quality: 0.95,
-        pixelRatio: 2,
-        cacheBust: true,
-        skipAutoScale: true,
-      });
+      const dataUrl = await captureElement(previewRef.current);
       const img = new Image();
       img.src = dataUrl;
       img.onload = () => {

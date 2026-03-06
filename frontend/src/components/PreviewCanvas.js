@@ -190,16 +190,18 @@ export const PreviewCanvas = ({ adData, selectedPlatform, setSelectedPlatform, d
 
       {/* Preview Area */}
       <div className="flex-1 flex items-start justify-center p-8 overflow-y-auto">
-        <div ref={previewRef} className="preview-transition animate-fade-in-up" key={`${selectedPlatform}-${deviceMode}`}>
-          {deviceMode === 'mobile' ? (
-            <PhoneFrame platform={selectedPlatform}>
-              <PreviewComponent adData={adData} isMobile={true} />
-            </PhoneFrame>
-          ) : (
-            <BrowserFrame platform={selectedPlatform}>
-              <PreviewComponent adData={adData} isMobile={false} />
-            </BrowserFrame>
-          )}
+        <div className="preview-transition animate-fade-in-up" key={`${selectedPlatform}-${deviceMode}`}>
+          <div ref={previewRef}>
+            {deviceMode === 'mobile' ? (
+              <PhoneFrame platform={selectedPlatform}>
+                <PreviewComponent adData={adData} isMobile={true} />
+              </PhoneFrame>
+            ) : (
+              <BrowserFrame platform={selectedPlatform}>
+                <PreviewComponent adData={adData} isMobile={false} />
+              </BrowserFrame>
+            )}
+          </div>
         </div>
       </div>
     </div>
