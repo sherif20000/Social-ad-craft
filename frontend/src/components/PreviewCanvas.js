@@ -1,5 +1,5 @@
 import React from 'react';
-import { PLATFORMS } from '@/lib/constants';
+import { PLATFORMS, PLATFORM_FORMATS } from '@/lib/constants';
 import { ExportButton } from '@/components/ExportButton';
 import { FacebookPreview } from '@/components/previews/FacebookPreview';
 import { InstagramPreview } from '@/components/previews/InstagramPreview';
@@ -13,7 +13,6 @@ import { GoogleAdsPreview } from '@/components/previews/GoogleAdsPreview';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaYoutube, FaPinterest, FaSnapchat, FaGoogle } from 'react-icons/fa6';
 import { FaXTwitter } from 'react-icons/fa6';
 import { Monitor, Smartphone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const PLATFORM_ICONS = {
   facebook: FaFacebook,
@@ -78,7 +77,10 @@ const BrowserFrame = ({ children, platform }) => {
 
 export const PreviewCanvas = ({ adData, selectedPlatform, setSelectedPlatform, deviceMode, setDeviceMode, previewRef }) => {
   const PreviewComponent = PREVIEW_COMPONENTS[selectedPlatform];
-  const isVertical = ['tiktok', 'snapchat'].includes(selectedPlatform);
+  const isVertical = ['tiktok', 'snapchat'].includes(selectedPlatform) ||
+    (adData.adFormat === 'story' && ['facebook', 'instagram'].includes(selectedPlatform));
+  const currentFormats = PLATFORM_FORMATS[selectedPlatform] || [];
+  const currentFormatName = currentFormats.find(f => f.id === adData.adFormat)?.name || adData.adFormat;
 
   return (
     <div data-testid="preview-canvas" className="flex flex-col h-full">
@@ -140,6 +142,21 @@ export const PreviewCanvas = ({ adData, selectedPlatform, setSelectedPlatform, d
             );
           })}
         </div>
+      </div>
+
+      {/* Format + Objective Indicator */}
+      <div className="px-6 py-2 bg-white border-b border-zinc-100 flex items-center gap-2 flex-shrink-0">
+        <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Preview:</span>
+        <span data-testid="format-badge" className="text-[11px] font-bold bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded">{currentFormatName}</span>
+        {adData.objective && (
+          <span data-testid="objective-badge" className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+            ['awareness', 'engagement'].includes(adData.objective)
+              ? 'bg-amber-50 text-amber-700'
+              : 'bg-indigo-50 text-indigo-700'
+          }`}>
+            {adData.objective.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+          </span>
+        )}
       </div>
 
       {/* Preview Area */}
