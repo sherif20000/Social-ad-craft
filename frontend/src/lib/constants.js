@@ -71,7 +71,7 @@ export const PLATFORM_FORMATS = {
   ],
 };
 
-export const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1662350689147-3d6c67b7cd10?w=600&q=80';
+export const PLACEHOLDER_IMAGE = '/placeholder.svg';
 
 export const CAROUSEL_PLACEHOLDERS = [
   'https://images.unsplash.com/photo-1662350689147-3d6c67b7cd10?w=400&q=80',

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2e8f0"/>
+      <stop offset="100%" style="stop-color:#cbd5e1"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect x="220" y="200" width="160" height="120" rx="8" fill="#94a3b8"/>
+  <circle cx="260" cy="240" r="20" fill="#64748b"/>
+  <polygon points="240,300 380,300 340,240 300,270 270,250" fill="#64748b"/>
+  <text x="300" y="360" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#64748b" font-weight="600">Upload Creative</text>
+  <text x="300" y="385" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#94a3b8">Click to add image or video</text>
+</svg>
