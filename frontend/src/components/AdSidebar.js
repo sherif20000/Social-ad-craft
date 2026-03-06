@@ -5,8 +5,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { MediaUploader } from '@/components/MediaUploader';
-import { CTA_OPTIONS, OBJECTIVES, PLATFORM_FORMATS } from '@/lib/constants';
-import { Sparkles, Plus, Trash2, Upload, Image as ImageIcon, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
+import { CharacterCounter } from '@/components/CharacterCounter';
+import { CTA_OPTIONS, OBJECTIVES, PLATFORM_FORMATS, PLATFORM_SPECS } from '@/lib/constants';
+import { Sparkles, Plus, Trash2, Upload, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 
 const CarouselCardEditor = ({ card, index, onUpdate, onRemove, onImageUpload }) => {
   const inputRef = useRef(null);
@@ -85,6 +86,7 @@ export const AdSidebar = ({
   const showCta = currentObjective?.hasCta !== false;
   const formats = PLATFORM_FORMATS[selectedPlatform] || [];
   const isCarousel = adData.adFormat === 'carousel';
+  const specs = PLATFORM_SPECS[selectedPlatform] || {};
 
   const validationResults = useMemo(() => {
     if (!showValidation) return null;
@@ -244,6 +246,12 @@ export const AdSidebar = ({
               rows={3}
               className="bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20 resize-none"
             />
+            <CharacterCounter
+              current={adData.caption.length}
+              recommended={specs.caption?.recommended}
+              max={specs.caption?.max}
+              fieldName="caption"
+            />
           </div>
           <div>
             <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Headline</Label>
@@ -253,6 +261,12 @@ export const AdSidebar = ({
               onChange={(e) => updateAdData('headline', e.target.value)}
               placeholder="Ad headline"
               className="h-10 bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20"
+            />
+            <CharacterCounter
+              current={adData.headline.length}
+              recommended={specs.headline?.recommended}
+              max={specs.headline?.max}
+              fieldName="headline"
             />
           </div>
           <div>
@@ -264,6 +278,12 @@ export const AdSidebar = ({
               placeholder="Ad description..."
               rows={2}
               className="bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20 resize-none"
+            />
+            <CharacterCounter
+              current={adData.description.length}
+              recommended={specs.description?.recommended}
+              max={specs.description?.max}
+              fieldName="description"
             />
           </div>
         </div>

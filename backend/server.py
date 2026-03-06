@@ -126,8 +126,6 @@ async def get_share(share_id: str):
 # Include router
 app.include_router(api_router)
 
-app.include_router(api_router)
-
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,

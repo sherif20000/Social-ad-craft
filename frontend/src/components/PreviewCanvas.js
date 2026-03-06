@@ -1,6 +1,7 @@
 import React from 'react';
 import { PLATFORMS, PLATFORM_FORMATS } from '@/lib/constants';
 import { ExportButton } from '@/components/ExportButton';
+import { ShareButton } from '@/components/ShareButton';
 import { FacebookPreview } from '@/components/previews/FacebookPreview';
 import { InstagramPreview } from '@/components/previews/InstagramPreview';
 import { TwitterPreview } from '@/components/previews/TwitterPreview';
@@ -117,6 +118,7 @@ export const PreviewCanvas = ({ adData, selectedPlatform, setSelectedPlatform, d
         </div>
 
         <ExportButton previewRef={previewRef} platform={selectedPlatform} />
+        <ShareButton adData={adData} selectedPlatform={selectedPlatform} />
       </div>
 
       {/* Platform Tabs */}
@@ -144,19 +146,36 @@ export const PreviewCanvas = ({ adData, selectedPlatform, setSelectedPlatform, d
         </div>
       </div>
 
-      {/* Format + Objective Indicator */}
-      <div className="px-6 py-2 bg-white border-b border-zinc-100 flex items-center gap-2 flex-shrink-0">
-        <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Preview:</span>
-        <span data-testid="format-badge" className="text-[11px] font-bold bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded">{currentFormatName}</span>
-        {adData.objective && (
-          <span data-testid="objective-badge" className={`text-[11px] font-bold px-2 py-0.5 rounded ${
-            ['awareness', 'engagement'].includes(adData.objective)
-              ? 'bg-amber-50 text-amber-700'
-              : 'bg-indigo-50 text-indigo-700'
-          }`}>
-            {adData.objective.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-          </span>
-        )}
+      {/* Format + Objective Indicator + Platform Logo */}
+      <div className="px-6 py-2 bg-white border-b border-zinc-100 flex items-center justify-between gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Preview:</span>
+          <span data-testid="format-badge" className="text-[11px] font-bold bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded">{currentFormatName}</span>
+          {adData.objective && (
+            <span data-testid="objective-badge" className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+              ['awareness', 'engagement'].includes(adData.objective)
+                ? 'bg-amber-50 text-amber-700'
+                : 'bg-indigo-50 text-indigo-700'
+            }`}>
+              {adData.objective.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            </span>
+          )}
+        </div>
+        {/* Platform Logo Badge */}
+        {(() => {
+          const platformData = PLATFORMS.find(p => p.id === selectedPlatform);
+          const Icon = PLATFORM_ICONS[selectedPlatform];
+          return platformData && Icon ? (
+            <div
+              data-testid="platform-logo-badge"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-white text-[11px] font-bold shadow-sm"
+              style={{ backgroundColor: platformData.color === '#FFFC00' ? '#FFC300' : platformData.color }}
+            >
+              <Icon className="w-3 h-3" />
+              {platformData.name}
+            </div>
+          ) : null;
+        })()}
       </div>
 
       {/* Preview Area */}
