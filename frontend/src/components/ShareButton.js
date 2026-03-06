@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
-import { Link2, Check, Loader2 } from 'lucide-react';
+import { Link2, Check, Loader2, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
 import axios from 'axios';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+const copyToClipboard = async (text) => {
+  // Try modern clipboard API first
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {}
+  }
+  // Fallback: textarea + execCommand
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  const ok = document.execCommand('copy');
+  document.body.removeChild(ta);
+  return ok;
+};
 
 export const ShareButton = ({ adData, selectedPlatform }) => {
   const [loading, setLoading] = useState(false);
@@ -18,12 +38,17 @@ export const ShareButton = ({ adData, selectedPlatform }) => {
         platform: selectedPlatform,
       });
       const shareUrl = `${window.location.origin}/share/${res.data.id}`;
-      await navigator.clipboard.writeText(shareUrl);
+      const didCopy = await copyToClipboard(shareUrl);
       setCopied(true);
-      toast.success('Shareable link copied to clipboard!', { description: shareUrl });
+      if (didCopy) {
+        toast.success('Link copied to clipboard!', { description: shareUrl });
+      } else {
+        toast.success('Share link created!', { description: `Copy this link: ${shareUrl}` });
+      }
       setTimeout(() => setCopied(false), 3000);
-    } catch {
-      toast.error('Failed to generate share link. Please try again.');
+    } catch (err) {
+      console.error('Share error:', err);
+      toast.error('Failed to create share link. Please try again.');
     } finally {
       setLoading(false);
     }

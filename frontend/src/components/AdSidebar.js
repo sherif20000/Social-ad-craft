@@ -237,7 +237,9 @@ export const AdSidebar = ({
         <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-400">Ad Copy</h3>
         <div className="space-y-3">
           <div>
-            <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Caption</Label>
+            <Label className="text-xs font-semibold text-zinc-700 mb-1 block">Caption
+              <span className="ml-1.5 text-[10px] font-normal text-zinc-400 normal-case tracking-normal">Main post text above the image</span>
+            </Label>
             <Textarea
               data-testid="caption-input"
               value={adData.caption}
@@ -254,7 +256,9 @@ export const AdSidebar = ({
             />
           </div>
           <div>
-            <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Headline</Label>
+            <Label className="text-xs font-semibold text-zinc-700 mb-1 block">Headline
+              <span className="ml-1.5 text-[10px] font-normal text-zinc-400 normal-case tracking-normal">Bold text in the link card</span>
+            </Label>
             <Input
               data-testid="headline-input"
               value={adData.headline}
@@ -270,7 +274,9 @@ export const AdSidebar = ({
             />
           </div>
           <div>
-            <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Description</Label>
+            <Label className="text-xs font-semibold text-zinc-700 mb-1 block">Description
+              <span className="ml-1.5 text-[10px] font-normal text-zinc-400 normal-case tracking-normal">Supporting text below the headline</span>
+            </Label>
             <Textarea
               data-testid="description-input"
               value={adData.description}

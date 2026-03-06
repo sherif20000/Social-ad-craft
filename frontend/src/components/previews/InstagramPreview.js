@@ -14,16 +14,18 @@ export const InstagramPreview = ({ adData }) => {
 
   const ProfileHeader = () => (
     <div className="px-3 py-2.5 flex items-center gap-2.5">
-      <div className="w-8 h-8 rounded-full ring-2 ring-pink-500 ring-offset-1 flex items-center justify-center overflow-hidden">
-        {profileImage ? (
-          <img src={profileImage} alt="" className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center text-white font-bold text-xs">{initial}</div>
-        )}
+      <div className="w-9 h-9 rounded-full p-[2px] flex-shrink-0" style={{ background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)' }}>
+        <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center">
+          {profileImage ? (
+            <img src={profileImage} alt="" className="w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center text-white font-bold text-xs">{initial}</div>
+          )}
+        </div>
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-semibold text-[13px] text-zinc-900 leading-tight">{handle}</p>
-        <p className="text-[10px] text-zinc-500">Sponsored</p>
+        <p className="font-semibold text-[13px] text-zinc-900 leading-tight">@{handle}</p>
+        <p className="text-[10px] text-zinc-500 font-medium">Sponsored</p>
       </div>
       <FaEllipsis className="w-4 h-4 text-zinc-600" />
     </div>
@@ -145,7 +147,8 @@ export const InstagramPreview = ({ adData }) => {
       <div className="px-3 pt-1.5"><p className="font-semibold text-[13px] text-zinc-900">1,234 likes</p></div>
       <div className="px-3 pt-1 pb-2">
         <p className="text-[13px] text-zinc-900 leading-snug">
-          <span className="font-semibold">{handle}</span>{' '}{caption || 'Your ad caption here...'}
+          <span className="font-bold">@{handle}</span>{' '}
+          <span className="text-zinc-700">{caption || 'Your ad caption here...'}</span>
         </p>
       </div>
       {showCta && (
