@@ -5,7 +5,6 @@ import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const TwitterPreview = ({ adData }) => {
   const { brandName, brandHandle, caption, headline, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const handle = brandHandle || '@yourbrand';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
@@ -64,7 +63,7 @@ export const TwitterPreview = ({ adData }) => {
                 {mediaType === 'video' && mediaUrl ? (
                   <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
                 ) : (
-                  <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+                  <img src={mediaUrl || "/placeholder.svg"} alt="Ad" className="w-full h-full object-cover" />
                 )}
                 {adFormat === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">

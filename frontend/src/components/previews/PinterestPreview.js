@@ -5,7 +5,6 @@ import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const PinterestPreview = ({ adData }) => {
   const { brandName, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
 
@@ -56,7 +55,7 @@ export const PinterestPreview = ({ adData }) => {
             {mediaType === 'video' && mediaUrl ? (
               <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
             ) : (
-              <img src={displayMedia} alt="" className="w-full h-full object-cover" />
+              <img src={mediaUrl || "/placeholder.svg"} alt="" className="w-full h-full object-cover" />
             )}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-14 h-14 bg-black/40 rounded-full flex items-center justify-center">
@@ -96,7 +95,7 @@ export const PinterestPreview = ({ adData }) => {
           {mediaType === 'video' && mediaUrl ? (
             <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
           ) : (
-            <img src={displayMedia} alt="Pin" className="w-full h-full object-cover" />
+            <img src={mediaUrl || "/placeholder.svg"} alt="Pin" className="w-full h-full object-cover" />
           )}
           <div className="absolute top-3 left-3">
             <span className="bg-white/90 text-zinc-700 text-[10px] font-semibold px-2 py-1 rounded-full">Promoted</span>

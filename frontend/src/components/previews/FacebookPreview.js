@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
+import { CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
+import { PlaceholderMedia } from '@/components/PlaceholderMedia';
 import { FaThumbsUp, FaComment, FaShare, FaEllipsis, FaGlobe } from 'react-icons/fa6';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const FacebookPreview = ({ adData }) => {
   const { brandName, caption, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -39,9 +39,13 @@ export const FacebookPreview = ({ adData }) => {
   // Story format - vertical fullscreen
   if (adFormat === 'story') {
     return (
-      <div data-testid="facebook-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-        <div className="absolute inset-0">
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+      <div data-testid="facebook-preview" className="bg-black text-white font-sans" style={{ width: '100%', paddingTop: '177.78%', position: 'relative' }}>
+        <div className="absolute inset-0 overflow-hidden">
+          {mediaUrl ? (
+            <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
+          ) : (
+            <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
         </div>
         <div className="absolute top-3 left-3 right-3 z-10 flex items-center gap-2">
@@ -118,11 +122,13 @@ export const FacebookPreview = ({ adData }) => {
       <div className="px-4 pb-2.5">
         <p className="text-[13px] text-zinc-900 leading-snug">{caption || 'Your ad caption here...'}</p>
       </div>
-      <div className="w-full aspect-square bg-zinc-100 relative overflow-hidden">
+      <div className="w-full bg-zinc-100 relative overflow-hidden" style={{ paddingTop: '100%' }}>
         {mediaType === 'video' || adFormat === 'video' ? (
-          <AutoPlayVideo src={displayMedia} className="w-full h-full object-cover" />
+          <AutoPlayVideo src={mediaUrl} className="absolute inset-0 w-full h-full object-cover" />
+        ) : mediaUrl ? (
+          <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
         ) : (
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+          <PlaceholderMedia className="absolute inset-0 w-full h-full" />
         )}
         {adFormat === 'video' && (
           <div className="absolute inset-0 flex items-center justify-center">

@@ -1,11 +1,11 @@
 import React from 'react';
-import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
+import { OBJECTIVES } from '@/lib/constants';
+import { PlaceholderMedia } from '@/components/PlaceholderMedia';
 import { FaThumbsUp, FaThumbsDown, FaShare, FaEllipsisVertical } from 'react-icons/fa6';
 import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const YouTubePreview = ({ adData }) => {
   const { brandName, caption, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
   const isShorts = adFormat === 'shorts';
@@ -15,12 +15,14 @@ export const YouTubePreview = ({ adData }) => {
   // Shorts format (vertical)
   if (isShorts) {
     return (
-      <div data-testid="youtube-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-        <div className="absolute inset-0">
+      <div data-testid="youtube-preview" className="bg-black text-white font-sans" style={{ width: '100%', paddingTop: '177.78%', position: 'relative' }}>
+        <div className="absolute inset-0 overflow-hidden">
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+          ) : mediaUrl ? (
+            <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+            <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </div>
@@ -51,7 +53,7 @@ export const YouTubePreview = ({ adData }) => {
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+            <img src={mediaUrl || "/placeholder.svg"} alt="Ad" className="w-full h-full object-cover" />
           )}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 bg-black/60 rounded-full flex items-center justify-center">
@@ -102,7 +104,7 @@ export const YouTubePreview = ({ adData }) => {
   return (
     <div data-testid="youtube-preview" className="bg-white font-sans text-[14px]">
       <div className="w-full aspect-video bg-zinc-900 relative overflow-hidden">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+        <img src={mediaUrl || "/placeholder.svg"} alt="Ad" className="w-full h-full object-cover" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 bg-black/60 rounded-full flex items-center justify-center">
             <svg viewBox="0 0 24 24" className="w-7 h-7 text-white ml-1" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>

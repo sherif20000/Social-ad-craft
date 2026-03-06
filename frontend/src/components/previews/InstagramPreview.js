@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
+import { CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
+import { PlaceholderMedia } from '@/components/PlaceholderMedia';
 import { FaRegHeart, FaRegComment, FaRegBookmark, FaEllipsis } from 'react-icons/fa6';
 import { Send } from 'lucide-react';
 import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const InstagramPreview = ({ adData }) => {
   const { brandName, brandHandle, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const handle = brandHandle?.replace('@', '') || 'yourbrand';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
@@ -45,12 +45,14 @@ export const InstagramPreview = ({ adData }) => {
   // Story / Reel format
   if (adFormat === 'story' || adFormat === 'video') {
     return (
-      <div data-testid="instagram-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-        <div className="absolute inset-0">
+      <div data-testid="instagram-preview" className="bg-black text-white font-sans" style={{ width: '100%', paddingTop: '177.78%', position: 'relative' }}>
+        <div className="absolute inset-0 overflow-hidden">
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+          ) : mediaUrl ? (
+            <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+            <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         </div>
@@ -140,8 +142,14 @@ export const InstagramPreview = ({ adData }) => {
   return (
     <div data-testid="instagram-preview" className="bg-white font-sans text-[14px]">
       <ProfileHeader />
-      <div className="w-full aspect-square bg-zinc-100 relative overflow-hidden">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+      <div className="w-full bg-zinc-100 relative overflow-hidden" style={{ paddingTop: '100%' }}>
+        {mediaType === 'video' && mediaUrl ? (
+          <AutoPlayVideo src={mediaUrl} className="absolute inset-0 w-full h-full object-cover" />
+        ) : mediaUrl ? (
+          <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <PlaceholderMedia className="absolute inset-0 w-full h-full" />
+        )}
       </div>
       <ActionRow />
       <div className="px-3 pt-1.5"><p className="font-semibold text-[13px] text-zinc-900">1,234 likes</p></div>

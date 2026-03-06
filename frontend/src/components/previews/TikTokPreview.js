@@ -1,23 +1,25 @@
 import React from 'react';
-import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
+import { OBJECTIVES } from '@/lib/constants';
+import { PlaceholderMedia } from '@/components/PlaceholderMedia';
 import { FaHeart, FaCommentDots, FaShare, FaBookmark, FaMusic } from 'react-icons/fa6';
 import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const TikTokPreview = ({ adData }) => {
   const { brandName, brandHandle, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const handle = brandHandle?.replace('@', '') || 'yourbrand';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
   const isTopView = adFormat === 'top_view';
 
   return (
-    <div data-testid="tiktok-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-      <div className="absolute inset-0">
+    <div data-testid="tiktok-preview" className="bg-black text-white font-sans text-[14px]" style={{ width: '100%', paddingTop: '177.78%', position: 'relative' }}>
+      <div className="absolute inset-0 overflow-hidden">
         {mediaType === 'video' && mediaUrl ? (
           <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+        ) : mediaUrl ? (
+          <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
         ) : (
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+          <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       </div>

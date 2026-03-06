@@ -1,24 +1,29 @@
 import React from 'react';
-import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
+import { OBJECTIVES } from '@/lib/constants';
+import { PlaceholderMedia } from '@/components/PlaceholderMedia';
 import { FaChevronUp } from 'react-icons/fa6';
 import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const SnapchatPreview = ({ adData }) => {
   const { brandName, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
-  const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
+
+  // Shared vertical container style (padding-top trick is more reliable than aspect-ratio)
+  const verticalContainer = { width: '100%', paddingTop: '177.78%', position: 'relative' };
 
   // Collection Ad
   if (adFormat === 'collection') {
     const cards = carouselCards?.slice(0, 4) || [];
     return (
-      <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-        <div className="absolute inset-0">
+      <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px]" style={verticalContainer}>
+        <div className="absolute inset-0 overflow-hidden">
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+          ) : mediaUrl ? (
+            <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+            <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
         </div>
@@ -42,7 +47,7 @@ export const SnapchatPreview = ({ adData }) => {
             {[0, 1, 2, 3].map(i => (
               <div key={i} className="rounded-lg overflow-hidden bg-white/10 backdrop-blur-sm aspect-square">
                 <img
-                  src={cards[i]?.imageUrl || `${PLACEHOLDER_IMAGE}&w=${200 + i * 50}`}
+                  src={cards[i]?.imageUrl || "/placeholder.svg"}
                   alt="" className="w-full h-full object-cover"
                  
                 />
@@ -64,12 +69,14 @@ export const SnapchatPreview = ({ adData }) => {
   // Story Ad
   if (adFormat === 'story') {
     return (
-      <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-        <div className="absolute inset-0">
+      <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px]" style={verticalContainer}>
+        <div className="absolute inset-0 overflow-hidden">
           {mediaType === 'video' && mediaUrl ? (
             <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+          ) : mediaUrl ? (
+            <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
           ) : (
-            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+            <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         </div>
@@ -107,9 +114,15 @@ export const SnapchatPreview = ({ adData }) => {
 
   // Single Image/Video (default)
   return (
-    <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
-      <div className="absolute inset-0">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" />
+    <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px]" style={verticalContainer}>
+      <div className="absolute inset-0 overflow-hidden">
+        {mediaType === 'video' && mediaUrl ? (
+          <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
+        ) : mediaUrl ? (
+          <img src={mediaUrl} alt="Ad" className="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <PlaceholderMedia dark className="absolute inset-0 w-full h-full" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
       </div>
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between">

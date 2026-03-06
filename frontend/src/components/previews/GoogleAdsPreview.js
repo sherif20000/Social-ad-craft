@@ -1,5 +1,5 @@
 import React from 'react';
-import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
+import { OBJECTIVES } from '@/lib/constants';
 import { FaGoogle } from 'react-icons/fa6';
 
 export const GoogleAdsPreview = ({ adData }) => {
@@ -13,7 +13,7 @@ export const GoogleAdsPreview = ({ adData }) => {
       <div data-testid="google-ads-preview" className="bg-white font-sans text-[14px] p-0">
         {/* Display Banner */}
         <div className="relative bg-zinc-100 rounded-lg overflow-hidden border border-zinc-200" style={{ aspectRatio: '1.91/1' }}>
-          <img src={mediaUrl || PLACEHOLDER_IMAGE} alt="Ad" className="w-full h-full object-cover" />
+          <img src={mediaUrl || "/placeholder.svg"} alt="Ad" className="w-full h-full object-cover" />
           {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex flex-col justify-center p-6">
             <p className="text-white text-[18px] font-bold leading-tight mb-1">{headline || 'Ad Headline'}</p>
@@ -55,7 +55,7 @@ export const GoogleAdsPreview = ({ adData }) => {
         <div className="grid grid-cols-2 gap-3">
           {[0, 1, 2, 3].map(i => (
             <div key={i} className={`rounded-lg border border-zinc-200 overflow-hidden ${i === 0 ? 'ring-2 ring-indigo-200' : 'opacity-60'}`}>
-              <img src={mediaUrl || `${PLACEHOLDER_IMAGE}&w=${300 + i * 50}`} alt="" className="w-full aspect-square object-cover" />
+              <img src={mediaUrl || "/placeholder.svg"} alt="" className="w-full aspect-square object-cover" />
               <div className="p-2.5">
                 <p className="font-bold text-[14px] text-zinc-900">{i === 0 ? '$49.99' : `$${29 + i * 15}.99`}</p>
                 <p className="text-[11px] text-zinc-600 mt-0.5 truncate">{i === 0 ? (headline || 'Product Name') : 'Similar Product'}</p>
