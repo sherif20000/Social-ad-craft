@@ -1,0 +1,175 @@
+{
+  "brand_identity": {
+    "name": "AdVantage Studio",
+    "persona": "The Precision Architect",
+    "core_philosophy": "The UI should feel like a high-end camera lens: precise, mechanical, and invisible until you need it.",
+    "emotional_tone": "Professional, crisp, frictionless, authoritative.",
+    "visual_mood": "Swiss & High-Contrast. Stark white canvas, obsidian tools, electric accents."
+  },
+  "typography": {
+    "headings": {
+      "family": "Outfit, sans-serif",
+      "weights": [500, 700],
+      "usage": "Use for all page titles, section headers, and campaign names.",
+      "styles": {
+        "h1": "text-5xl md:text-6xl font-bold tracking-tight leading-none text-zinc-900",
+        "h2": "text-3xl md:text-4xl font-bold tracking-tight text-zinc-900",
+        "h3": "text-xl md:text-2xl font-semibold tracking-normal text-zinc-800",
+        "label": "text-xs font-bold tracking-widest uppercase text-zinc-500"
+      }
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": [400, 500, 600],
+      "usage": "Use for all inputs, ad copy previews, and interface text. Excellent for numbers.",
+      "styles": {
+        "base": "text-base font-medium leading-relaxed text-zinc-600",
+        "small": "text-sm font-medium leading-normal text-zinc-500",
+        "tiny": "text-xs font-semibold text-zinc-400"
+      }
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#18181B",
+        "foreground": "#FAFAFA",
+        "description": "Zinc 950. Used for primary actions, sidebar backgrounds, and strong emphasis."
+      },
+      "secondary": {
+        "DEFAULT": "#F4F4F5",
+        "foreground": "#18181B",
+        "description": "Zinc 100. Used for button backgrounds (ghost), panel backgrounds."
+      },
+      "accent": {
+        "DEFAULT": "#4F46E5",
+        "foreground": "#FFFFFF",
+        "description": "Indigo 600. 'Electric Indigo'. Used for active states, toggles, and 'Generate/Export' actions."
+      },
+      "background": {
+        "DEFAULT": "#FFFFFF",
+        "canvas": "#F8FAFC"
+      },
+      "muted": {
+        "DEFAULT": "#E4E4E7",
+        "foreground": "#71717A"
+      },
+      "border": "#E4E4E7"
+    },
+    "gradients": {
+      "subtle": "bg-gradient-to-b from-white to-zinc-50/50",
+      "active_glow": "bg-gradient-to-r from-indigo-500/10 to-purple-500/10"
+    }
+  },
+  "layout": {
+    "structure": {
+      "sidebar_width": "w-80",
+      "canvas_bg": "bg-zinc-50/50",
+      "panel_radius": "rounded-xl"
+    },
+    "spacing": {
+      "container_padding": "p-6 md:p-8 lg:p-12",
+      "section_gap": "gap-8",
+      "component_gap": "gap-4"
+    },
+    "grid_system": {
+      "dashboard": "grid grid-cols-1 lg:grid-cols-12 h-screen overflow-hidden",
+      "sidebar": "lg:col-span-3 xl:col-span-3 border-r border-zinc-200 bg-white h-full overflow-y-auto z-10",
+      "main_stage": "lg:col-span-9 xl:col-span-9 bg-zinc-50/50 h-full overflow-y-auto relative flex flex-col"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-zinc-900 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-900/20 rounded-lg px-6 py-3 font-semibold transition-transform active:scale-95",
+      "secondary": "bg-white border border-zinc-200 text-zinc-900 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm rounded-lg px-6 py-3 font-medium transition-colors",
+      "ghost": "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-lg px-4 py-2 font-medium"
+    },
+    "cards": {
+      "base": "bg-white border border-zinc-200 shadow-sm rounded-xl p-6",
+      "interactive": "bg-white border border-zinc-200 shadow-sm hover:shadow-md hover:border-zinc-300 rounded-xl p-6 transition-all cursor-pointer group",
+      "preview_container": "bg-white shadow-2xl shadow-zinc-200/50 border border-zinc-100 rounded-2xl overflow-hidden transform transition-all duration-500"
+    },
+    "inputs": {
+      "base": "flex h-12 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all shadow-sm",
+      "label": "text-xs font-semibold text-zinc-900 uppercase tracking-wider mb-2 block"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "floating": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+      "sharp": "shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
+    },
+    "borders": {
+      "subtle": "border border-zinc-200",
+      "active": "border border-indigo-500 ring-4 ring-indigo-500/10"
+    },
+    "glass": "backdrop-blur-xl bg-white/80 border border-white/20 shadow-sm"
+  },
+  "ad_specs_reference": {
+    "facebook": {
+      "feed": { "width": 1080, "height": 1080, "ratio": "1:1" },
+      "story": { "width": 1080, "height": 1920, "ratio": "9:16" }
+    },
+    "instagram": {
+      "feed": { "width": 1080, "height": 1080, "ratio": "1:1" },
+      "story": { "width": 1080, "height": 1920, "ratio": "9:16" }
+    },
+    "twitter": {
+      "feed": { "width": 1200, "height": 675, "ratio": "16:9" },
+      "card": { "width": 800, "height": 418, "ratio": "1.91:1" }
+    },
+    "linkedin": {
+      "feed": { "width": 1200, "height": 627, "ratio": "1.91:1" }
+    },
+    "tiktok": {
+      "feed": { "width": 1080, "height": 1920, "ratio": "9:16" }
+    }
+  },
+  "image_assets": {
+    "placeholders": [
+      {
+        "url": "https://images.unsplash.com/photo-1662350689147-3d6c67b7cd10?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBwcm9kdWN0JTIwcGhvdG9ncmFwaHklMjBtaW5pbWFsaXN0fGVufDB8fHx8MTc3MjgwNTYyOHww&ixlib=rb-4.1.0&q=85",
+        "alt": "Minimalist Product Black"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1760108232787-40ec40f9a706?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODh8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBwcm9kdWN0JTIwcGhvdG9ncmFwaHklMjBtaW5pbWFsaXN0fGVufDB8fHx8MTc3MjgwNTYyOHww&ixlib=rb-4.1.0&q=85",
+        "alt": "Beige Cube Product"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758275557784-39516582a05d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHw0fHxsaWZlc3R5bGUlMjBoYXBweSUyMHBlb3BsZSUyMG91dGRvb3IlMjBkaXZlcnNlfGVufDB8fHx8MTc3MjgwNTYyOXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Lifestyle Selfie"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758272134196-1ab895629bce?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwzfHxsaWZlc3R5bGUlMjBoYXBweSUyMHBlb3BsZSUyMG91dGRvb3IlMjBkaXZlcnNlfGVufDB8fHx8MTc3MjgwNTYyOXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Rooftop Party"
+      }
+    ],
+    "logos": {
+      "facebook": "Use React Icons: FaFacebook",
+      "instagram": "Use React Icons: FaInstagram",
+      "twitter": "Use React Icons: FaTwitter (or X icon)",
+      "linkedin": "Use React Icons: FaLinkedin",
+      "tiktok": "Use React Icons: FaTiktok",
+      "youtube": "Use React Icons: FaYoutube",
+      "pinterest": "Use React Icons: FaPinterest",
+      "snapchat": "Use React Icons: FaSnapchat"
+    }
+  },
+  "instructions_to_main_agent": [
+    "INSTALL_DEPENDENCIES: yarn add react-icons html-to-image jspdf",
+    "DO NOT create a separate 'Preview' page. The preview must be live on the dashboard (Right or Center panel).",
+    "THE AD COMPONENT: Create a single 'AdPreview' component that accepts a 'platform' prop. Inside, switch between sub-components like <FacebookPreview>, <InstagramPreview> etc.",
+    "REALISM IS KEY: The preview components must identically match the DOM structure of the real platforms (User avatar top left, three dots right, image full width, reaction bar below).",
+    "DRAG & DROP: Use a robust file upload area in the Left Sidebar. 'Drop visuals here'.",
+    "NO AUTH: Do not build login screens. Land directly on the Dashboard.",
+    "EXPORT: Implement 'Download PNG' using 'html-to-image' library targeting the preview container ref.",
+    "MOBILE TOGGLE: Add a pill switch 'Mobile | Desktop' above the preview canvas that resizes the preview container."
+  ],
+  "universal_guidelines": [
+    "Never use gradients for main backgrounds, only for subtle accents.",
+    "Do not center text in the sidebar; keep it left-aligned for readability.",
+    "Use 24px+ padding inside all cards.",
+    "All interactive elements must have a hover state that changes background or text color.",
+    "Use 'sonner' for all toast notifications (e.g., 'Image Uploaded', 'Export Complete')."
+  ]
+}
