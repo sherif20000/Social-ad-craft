@@ -104,7 +104,28 @@ async def delete_media(file_id: str):
         raise HTTPException(status_code=404, detail="File not found")
     return {"message": "File deleted"}
 
+# Share endpoints
+@api_router.post("/share")
+async def create_share(data: dict):
+    share_id = str(uuid.uuid4())[:8]
+    doc = {
+        "id": share_id,
+        "ad_data": data,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.shares.insert_one(doc)
+    return {"id": share_id, "url": f"/share/{share_id}"}
+
+@api_router.get("/share/{share_id}")
+async def get_share(share_id: str):
+    share = await db.shares.find_one({"id": share_id}, {"_id": 0})
+    if not share:
+        raise HTTPException(status_code=404, detail="Share not found")
+    return share
+
 # Include router
+app.include_router(api_router)
+
 app.include_router(api_router)
 
 app.add_middleware(

@@ -104,3 +104,60 @@ export const CTA_OPTIONS = [
   'Contact Us', 'Get Quote', 'Subscribe', 'Watch More', 'Apply Now',
   'Get Offer', 'Order Now', 'See Menu', 'Buy Tickets', 'Install Now',
 ];
+
+export const PLATFORM_SPECS = {
+  facebook: {
+    caption: { recommended: 125, max: 63206 },
+    headline: { recommended: 40, max: 255 },
+    description: { recommended: 30, max: 255 },
+    dimensions: { single_image: '1080x1080 (1:1)', carousel: '1080x1080 /card', video: '1080x1080 or 1920x1080', story: '1080x1920 (9:16)' },
+  },
+  instagram: {
+    caption: { recommended: 125, max: 2200 },
+    headline: { recommended: 40, max: 100 },
+    description: { recommended: 30, max: 100 },
+    dimensions: { single_image: '1080x1080 (1:1)', carousel: '1080x1080 /card', video: '1080x1920 (Reels)', story: '1080x1920 (9:16)' },
+  },
+  twitter: {
+    caption: { recommended: 280, max: 280 },
+    headline: { recommended: 70, max: 70 },
+    description: { recommended: 200, max: 200 },
+    dimensions: { single_image: '1200x675 (16:9)', carousel: '800x418 /card', video: '1920x1080 (16:9)' },
+  },
+  linkedin: {
+    caption: { recommended: 150, max: 700 },
+    headline: { recommended: 70, max: 200 },
+    description: { recommended: 100, max: 300 },
+    dimensions: { single_image: '1200x627 (1.91:1)', carousel: '1080x1080 /card', video: '1920x1080 (16:9)' },
+  },
+  tiktok: {
+    caption: { recommended: 100, max: 2200 },
+    headline: { recommended: 40, max: 100 },
+    description: { recommended: 100, max: 300 },
+    dimensions: { in_feed: '1080x1920 (9:16)', spark: '1080x1920 (9:16)', top_view: '1080x1920 (9:16)' },
+  },
+  youtube: {
+    caption: { recommended: 150, max: 5000 },
+    headline: { recommended: 70, max: 100 },
+    description: { recommended: 150, max: 5000 },
+    dimensions: { in_stream: '1920x1080 (16:9)', in_feed: '1920x1080 (16:9)', shorts: '1080x1920 (9:16)', bumper: '1920x1080 (16:9)' },
+  },
+  pinterest: {
+    caption: { recommended: 100, max: 500 },
+    headline: { recommended: 40, max: 100 },
+    description: { recommended: 100, max: 500 },
+    dimensions: { standard: '1000x1500 (2:3)', carousel: '1000x1500 /pin', video: '1000x1500 (2:3)' },
+  },
+  snapchat: {
+    caption: { recommended: 80, max: 160 },
+    headline: { recommended: 34, max: 34 },
+    description: { recommended: 100, max: 200 },
+    dimensions: { single: '1080x1920 (9:16)', story: '1080x1920 (9:16)', collection: '1080x1920 (9:16)' },
+  },
+  google: {
+    caption: { recommended: 90, max: 90 },
+    headline: { recommended: 30, max: 30 },
+    description: { recommended: 90, max: 90 },
+    dimensions: { search: 'Text only', display: '1200x628 (1.91:1)', shopping: '800x800 (1:1)' },
+  },
+};

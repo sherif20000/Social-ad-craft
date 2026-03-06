@@ -1,0 +1,136 @@
+<analysis>**original_problem_statement:**
+The user wants to create a web-based application called AdVantage Studio to visualize ad previews across various social media platforms. The application should help users create high-converting and engaging ads by allowing them to customize every aspect and see a live preview.
+
+**PRODUCT REQUIREMENTS:**
+- **Core Functionality:** A dashboard to create and preview social media ads.
+- **Inputs:** Users can add visuals (images, videos), captions, headlines, and CTAs.
+- **Platforms:** Support for all major platforms including Facebook, Instagram, Twitter/X, LinkedIn, TikTok, YouTube, Pinterest, Snapchat, and Google Ads.
+- **Dynamic Previews:** The ad preview must adapt based on campaign objectives (e.g., 'Reach' ads without a CTA) and ad formats (e.g., Single Image, Carousel).
+- **File Handling:** Full drag & drop file upload capability for images and videos.
+- **Validation:** A button to validate that all required fields for an ad are filled.
+- **Collaboration:** A feature to generate a shareable link for an ad preview.
+- **UX Features:**
+    - Add a character counter with platform-specific limits for text fields.
+    - Improve the visibility of the platform logo on the preview.
+    - Download ad previews as images (PNG/PDF).
+- **Access:** The tool should be open for anyone to use without requiring a login.
+- **AI Features:** No AI features are required at this stage.
+
+**User's preferred language**: English
+
+**what currently exists?**
+A full-stack React and FastAPI application. The backend is configured with an object storage integration to handle media uploads. The frontend features a dashboard with a sidebar for ad configuration and a main canvas that displays a live, dynamic preview of the ad for 9 different social media platforms. The preview correctly adapts to different campaign objectives (e.g., 'Awareness' vs. 'Conversion') and ad formats ('Single Image/Video', 'Carousel'). A Validate Ad button and a fix for video rendering (using a custom  component) have also been implemented.
+
+**Last working item**:
+-   **Last item agent was working**: The agent was in the middle of implementing a batch of three new features requested by the user:
+    1.  **Platform Logo Visibility**: Improving how the platform logo is displayed in the preview.
+    2.  **Character Counter & Specs**: Adding a character counter with platform-specific limits.
+    3.  **Shareable Preview Link**: Creating a backend endpoint and frontend logic to generate and view shared ad previews.
+    The agent had just started the implementation, creating backend endpoints and new frontend components, but realized a routing issue in  and was in the process of correcting it.
+-   **Status**: IN PROGRESS
+-   **Agent Testing Done**: N
+-   **Which testing method agent to use?**: both
+-   **User Testing Done**: N
+
+**All Pending/In progress Issue list**:
+There are no pending bugs. The work is focused on feature development.
+
+**In progress Task List**:
+-   **Task 1: Implement Character Counter, Share Link, and Logo Visibility Fix (P0)**
+    -   **Where to resume**: The agent was in the process of running a  command to fix the order of routes in  and simultaneously update/create , , and . The next step is to integrate these new components and the sharing logic into the main  and  components and ensure the platform logo visibility is improved.
+    -   **What will be achieved with this?**: The app will gain a character counter for text inputs, a feature to share ad previews via a unique link, and clearer platform identification in the UI.
+    -   **Status**: IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?**: both
+    -   **Blocked on something**: No.
+
+**Upcoming and Future Tasks**
+-   **Upcoming Tasks**:
+    -   **Task 1: Download Ad Preview as Image (P1)**: Implement the functionality to allow users to download the current ad preview as a PNG or PDF file. This was part of the initial user request but has not been implemented yet.
+
+**Completed work in this session**
+-   **Application Scaffolding**: Created the initial full-stack React/FastAPI project structure.
+-   **Object Storage Integration**: Set up file upload functionality for images and videos.
+-   **Multi-Platform Preview Dashboard**: Implemented the core UI with a sidebar for controls and a canvas for previews across 9 social platforms.
+-   **Dynamic Previews**: Added logic for previews to change based on Campaign Objective and Ad Format (Single Image/Video, Carousel).
+-   **Validation Button**: Added a Validate Ad button in the sidebar.
+-   **Video Playback Fix**: Created a reusable  component to fix an issue where uploaded videos would not play correctly.
+
+**Earlier issues found/mentioned but not fixed**
+None.
+
+**Known issue recurrence from previous fork**
+None.
+
+**Code Architecture**
+
+
+**Key Technical Concepts**
+-   **Frontend**: React, Tailwind CSS, Shadcn UI
+-   **Backend**: FastAPI
+-   **Storage**: Emergent Object Storage for media uploads.
+-   **Database**: MongoDB (planned for the share feature).
+-   **State Management**: React state () is used to manage the ad configuration and drive the live preview.
+
+**key DB schema**
+-   **shares**:  (To be implemented in  for the sharing feature)
+
+**changes in tech stack**
+None.
+
+**All files of reference**
+-   : Main FastAPI server, handles file uploads and API endpoints for sharing.
+-   : The main page component that orchestrates the sidebar and preview canvas.
+-   : The left-side panel with all the controls for customizing the ad.
+-   : The component that displays the phone/web frame and renders the correct platform-specific preview.
+-   : A separate component for each of the 9 supported social media platforms, rendering the ad based on passed props.
+-   : A custom wrapper component to ensure videos autoplay correctly.
+-   : Contains shared constants, including platform-specific configurations and character limits.
+-   : A new page to display a preview from a shared link.
+
+**Areas that need refactoring**:
+None at the moment. The current structure is maintainable.
+
+**key api endpoints**
+-   : Uploads a media file to object storage.
+-   : Serves an uploaded media file.
+-   : (In progress) Creates a record with the current ad config and returns a unique ID.
+-   : (In progress) Retrieves an ad config by its unique ID.
+
+**Critical Info for New Agent**
+-   You are in the middle of implementing three features simultaneously: improving logo visibility, adding a character counter, and building a sharing mechanism.
+-   The last action was an attempt to fix a route ordering issue in  while also creating the new frontend components for these features. You need to verify that fix and then proceed with integrating the new components (, ) into the  and .
+-   The user has approved these features as the next step, so they are the highest priority.
+-   Remember to implement the Download Preview feature after the current set of tasks is complete, as it's a pending requirement from the initial request.
+
+**documents and test reports created in this job**
+-   /app/design_guidelines.json
+-   /app/memory/PRD.md
+-   /app/test_reports/iteration_4.json (and previous iterations)
+
+**Last 10 User Messages and any pending HUMAN messages**
+1.  **User**: Fix platform logo visibility, add character counter, add collaboration/sharing.
+2.  **Agent**: Acknowledged the three features and started implementation.
+3.  **Agent**: Began creating/modifying , , and .
+4.  **Agent**: Realized a routing error in  and prepared a command to fix it and create the remaining necessary files (, , ). This was the last action.
+5.  **User**: good , the orientation not clearily identify the platform logo . however orientation is clear . what could be deveoped also to enrich the app - User approved the current state but noted the logo issue and asked for more features.
+6.  **Agent**: Proposed three enhancements: Analytics Dashboard, A/B Testing, and Character Counter/Sharing.
+7.  **User**: add buttom to validate all fillled data . I test the video , but it appear as black - Reported two new issues.
+8.  **Agent**: Acknowledged both and started fixing them in parallel.
+9.  **User**: i cant see campain abojective based on platform , cause it some time change the preview completly. e.g : carousal ads will be differnt , some reach ads will not have CTA button - Requested dynamic previews based on campaign objectives.
+10. **Agent**: Acknowledged and implemented dynamic objective/format-based previews.
+
+**Project Health Check:**
+-   **Broken**: Nothing is critically broken.
+-   **Mocked**: No mocked components or data.
+
+**3rd Party Integrations**
+-   **Emergent Object Storage**: Used for image and video uploads. The integration playbook was correctly retrieved and used.
+
+**Testing status**
+-   **Testing agent used after significant changes**: YES
+-   **Troubleshoot agent used after agent stuck in loop**: NO
+-   **Test files created**: None. The testing agent was used for E2E validation.
+-   **Known regressions**: A testing failure related to video  attribute was identified. The agent created a new  component to resolve it, but a full test run after this specific fix has not been completed yet. The next test run should confirm this fix.
+
+**Credentials to test flow:**
+No credentials are required as the application does not have an authentication flow.</analysis>
