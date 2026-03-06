@@ -3,7 +3,7 @@ import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/cons
 import { FaEllipsis, FaArrowUpFromBracket } from 'react-icons/fa6';
 
 export const PinterestPreview = ({ adData }) => {
-  const { brandName, headline, description, ctaText, ctaLink, mediaUrl, profileImage, objective, adFormat, carouselCards } = adData;
+  const { brandName, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
   const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
@@ -52,7 +52,11 @@ export const PinterestPreview = ({ adData }) => {
       <div data-testid="pinterest-preview" className="bg-white font-sans text-[14px] max-w-[300px] mx-auto">
         <div className="rounded-2xl overflow-hidden shadow-sm border border-zinc-100">
           <div className="relative" style={{ aspectRatio: '2/3' }}>
-            <img src={displayMedia} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            {mediaType === 'video' && mediaUrl ? (
+              <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            ) : (
+              <img src={displayMedia} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            )}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-14 h-14 bg-black/40 rounded-full flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-white ml-0.5" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -88,7 +92,11 @@ export const PinterestPreview = ({ adData }) => {
     <div data-testid="pinterest-preview" className="bg-white font-sans text-[14px] max-w-[300px] mx-auto">
       <div className="rounded-2xl overflow-hidden shadow-sm border border-zinc-100">
         <div className="relative" style={{ aspectRatio: '2/3' }}>
-          <img src={displayMedia} alt="Pin" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          {mediaType === 'video' && mediaUrl ? (
+            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+          ) : (
+            <img src={displayMedia} alt="Pin" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          )}
           <div className="absolute top-3 left-3">
             <span className="bg-white/90 text-zinc-700 text-[10px] font-semibold px-2 py-1 rounded-full">Promoted</span>
           </div>

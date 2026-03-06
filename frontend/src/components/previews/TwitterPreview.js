@@ -60,7 +60,11 @@ export const TwitterPreview = ({ adData }) => {
             /* Single Image / Video */
             <div className="rounded-2xl overflow-hidden border border-zinc-200 mb-0.5">
               <div className={`bg-zinc-100 relative overflow-hidden ${adFormat === 'video' ? 'aspect-video' : 'aspect-video'}`}>
-                <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                {mediaType === 'video' && mediaUrl ? (
+                  <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+                ) : (
+                  <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+                )}
                 {adFormat === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-14 h-14 bg-black/50 rounded-full flex items-center justify-center">

@@ -119,7 +119,7 @@ export const FacebookPreview = ({ adData }) => {
       </div>
       <div className="w-full aspect-square bg-zinc-100 relative overflow-hidden">
         {mediaType === 'video' || adFormat === 'video' ? (
-          <video src={displayMedia} className="w-full h-full object-cover" muted />
+          <video src={displayMedia} className="w-full h-full object-cover" autoPlay muted loop playsInline />
         ) : (
           <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
         )}

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { MediaUploader } from '@/components/MediaUploader';
 import { CTA_OPTIONS, OBJECTIVES, PLATFORM_FORMATS } from '@/lib/constants';
-import { Sparkles, Plus, Trash2, Upload, Image as ImageIcon } from 'lucide-react';
+import { Sparkles, Plus, Trash2, Upload, Image as ImageIcon, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 
 const CarouselCardEditor = ({ card, index, onUpdate, onRemove, onImageUpload }) => {
   const inputRef = useRef(null);
@@ -80,10 +80,53 @@ export const AdSidebar = ({
   selectedPlatform, onObjectiveChange,
   updateCarouselCard, addCarouselCard, removeCarouselCard, onCarouselImageUpload,
 }) => {
+  const [showValidation, setShowValidation] = useState(false);
   const currentObjective = OBJECTIVES.find(o => o.id === adData.objective);
   const showCta = currentObjective?.hasCta !== false;
   const formats = PLATFORM_FORMATS[selectedPlatform] || [];
   const isCarousel = adData.adFormat === 'carousel';
+
+  const validationResults = useMemo(() => {
+    if (!showValidation) return null;
+    const errors = [];
+    const warnings = [];
+    const passed = [];
+
+    if (adData.brandName.trim()) passed.push('Brand Name');
+    else errors.push('Brand Name is required');
+
+    if (adData.caption.trim()) passed.push('Caption');
+    else errors.push('Caption is required');
+
+    if (adData.headline.trim()) passed.push('Headline');
+    else warnings.push('Headline is recommended');
+
+    if (adData.description.trim()) passed.push('Description');
+    else warnings.push('Description is recommended');
+
+    if (isCarousel) {
+      if (adData.carouselCards.length >= 2) passed.push(`${adData.carouselCards.length} Carousel Cards`);
+      else errors.push('Minimum 2 carousel cards required');
+      const cardsWithImages = adData.carouselCards.filter(c => c.imageUrl).length;
+      if (cardsWithImages === adData.carouselCards.length && adData.carouselCards.length > 0) passed.push('All cards have images');
+      else if (cardsWithImages > 0) warnings.push(`${adData.carouselCards.length - cardsWithImages} card(s) missing images`);
+      else warnings.push('No card images uploaded yet');
+    } else {
+      if (adData.mediaUrl) passed.push('Creative uploaded');
+      else warnings.push('No creative uploaded yet');
+    }
+
+    if (showCta) {
+      if (adData.ctaText.trim()) passed.push(`CTA: "${adData.ctaText}"`);
+      else errors.push('CTA button text is required');
+      if (adData.ctaLink.trim()) passed.push('Destination URL');
+      else warnings.push('Destination URL is recommended');
+    } else {
+      passed.push('No CTA needed for this objective');
+    }
+
+    return { errors, warnings, passed, isValid: errors.length === 0 };
+  }, [showValidation, adData, isCarousel, showCta]);
 
   return (
     <div data-testid="ad-sidebar" className="p-6 space-y-6">
@@ -307,6 +350,45 @@ export const AdSidebar = ({
           )}
         </div>
       )}
+
+      {/* Validate Button */}
+      <div className="pt-2 pb-4">
+        <Button
+          data-testid="validate-btn"
+          onClick={() => setShowValidation(prev => !prev)}
+          className={`w-full gap-2 rounded-lg font-semibold ${
+            showValidation && validationResults?.isValid
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              : 'bg-zinc-900 hover:bg-zinc-800 text-white'
+          }`}
+        >
+          <CheckCircle2 className="w-4 h-4" />
+          {showValidation ? (validationResults?.isValid ? 'All Checks Passed' : 'Revalidate') : 'Validate Ad'}
+        </Button>
+
+        {showValidation && validationResults && (
+          <div data-testid="validation-results" className="mt-3 space-y-1.5 p-3 bg-zinc-50 rounded-lg border border-zinc-200">
+            {validationResults.errors.map((msg, i) => (
+              <div key={`e-${i}`} data-testid={`validation-error-${i}`} className="flex items-start gap-2 text-red-600 text-[12px] font-medium">
+                <XCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                <span>{msg}</span>
+              </div>
+            ))}
+            {validationResults.warnings.map((msg, i) => (
+              <div key={`w-${i}`} data-testid={`validation-warning-${i}`} className="flex items-start gap-2 text-amber-600 text-[12px] font-medium">
+                <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                <span>{msg}</span>
+              </div>
+            ))}
+            {validationResults.passed.map((msg, i) => (
+              <div key={`p-${i}`} data-testid={`validation-passed-${i}`} className="flex items-start gap-2 text-emerald-600 text-[12px] font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                <span>{msg}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

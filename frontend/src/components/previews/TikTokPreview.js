@@ -13,7 +13,11 @@ export const TikTokPreview = ({ adData }) => {
   return (
     <div data-testid="tiktok-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
       <div className="absolute inset-0">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        {mediaType === 'video' && mediaUrl ? (
+          <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+        ) : (
+          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
       </div>
 

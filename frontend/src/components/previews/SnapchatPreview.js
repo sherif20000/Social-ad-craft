@@ -3,7 +3,7 @@ import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
 import { FaChevronUp } from 'react-icons/fa6';
 
 export const SnapchatPreview = ({ adData }) => {
-  const { brandName, caption, ctaText, mediaUrl, profileImage, objective, adFormat, carouselCards } = adData;
+  const { brandName, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
   const displayMedia = mediaUrl || PLACEHOLDER_IMAGE;
   const initial = brandName?.[0]?.toUpperCase() || 'B';
   const showCta = OBJECTIVES.find(o => o.id === objective)?.hasCta !== false;
@@ -14,7 +14,11 @@ export const SnapchatPreview = ({ adData }) => {
     return (
       <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          {mediaType === 'video' && mediaUrl ? (
+            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+          ) : (
+            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
         </div>
         <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between">
@@ -61,7 +65,11 @@ export const SnapchatPreview = ({ adData }) => {
     return (
       <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
-          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          {mediaType === 'video' && mediaUrl ? (
+            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+          ) : (
+            <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         </div>
         {/* Story tiles at top */}

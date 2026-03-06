@@ -98,7 +98,11 @@ export const LinkedInPreview = ({ adData }) => {
         <p className="text-[13px] text-zinc-700 leading-snug">{caption}</p>
       </div>
       <div className="w-full aspect-[1.91/1] bg-zinc-100 relative overflow-hidden">
-        <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        {mediaType === 'video' && mediaUrl ? (
+          <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+        ) : (
+          <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
+        )}
         {adFormat === 'video' && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-14 h-14 bg-black/50 rounded-full flex items-center justify-center">
