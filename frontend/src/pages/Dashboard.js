@@ -1,0 +1,72 @@
+import React, { useState, useRef, useCallback } from 'react';
+import { AdSidebar } from '@/components/AdSidebar';
+import { PreviewCanvas } from '@/components/PreviewCanvas';
+import { DEFAULT_AD_DATA } from '@/lib/constants';
+import { Toaster, toast } from '@/components/ui/sonner';
+import axios from 'axios';
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+export default function Dashboard() {
+  const [adData, setAdData] = useState(DEFAULT_AD_DATA);
+  const [selectedPlatform, setSelectedPlatform] = useState('facebook');
+  const [deviceMode, setDeviceMode] = useState('mobile');
+  const [isUploading, setIsUploading] = useState(false);
+  const previewRef = useRef(null);
+
+  const updateAdData = useCallback((field, value) => {
+    setAdData(prev => ({ ...prev, [field]: value }));
+  }, []);
+
+  const handleMediaUpload = useCallback(async (file) => {
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await axios.post(`${API}/upload`, formData);
+      const mediaUrl = `${API}/files/${response.data.storage_path}`;
+      setAdData(prev => ({
+        ...prev,
+        mediaUrl,
+        mediaType: file.type.startsWith('video') ? 'video' : 'image',
+      }));
+      toast.success('Media uploaded successfully');
+    } catch (error) {
+      console.error('Upload failed:', error);
+      toast.error('Failed to upload media');
+    } finally {
+      setIsUploading(false);
+    }
+  }, []);
+
+  const handleClearMedia = useCallback(() => {
+    setAdData(prev => ({ ...prev, mediaUrl: '', mediaType: 'image' }));
+  }, []);
+
+  return (
+    <div data-testid="dashboard" className="h-screen overflow-hidden bg-white">
+      <Toaster position="top-right" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 h-full">
+        <div className="lg:col-span-4 xl:col-span-3 border-r border-zinc-200 bg-white h-full overflow-y-auto sidebar-scroll">
+          <AdSidebar
+            adData={adData}
+            updateAdData={updateAdData}
+            onMediaUpload={handleMediaUpload}
+            onClearMedia={handleClearMedia}
+            isUploading={isUploading}
+          />
+        </div>
+        <div className="lg:col-span-8 xl:col-span-9 bg-zinc-50/50 h-full overflow-y-auto">
+          <PreviewCanvas
+            adData={adData}
+            selectedPlatform={selectedPlatform}
+            setSelectedPlatform={setSelectedPlatform}
+            deviceMode={deviceMode}
+            setDeviceMode={setDeviceMode}
+            previewRef={previewRef}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
