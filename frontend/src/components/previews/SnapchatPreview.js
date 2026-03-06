@@ -1,6 +1,7 @@
 import React from 'react';
 import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
 import { FaChevronUp } from 'react-icons/fa6';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const SnapchatPreview = ({ adData }) => {
   const { brandName, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -15,7 +16,7 @@ export const SnapchatPreview = ({ adData }) => {
       <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
           {mediaType === 'video' && mediaUrl ? (
-            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
             <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
           )}
@@ -66,7 +67,7 @@ export const SnapchatPreview = ({ adData }) => {
       <div data-testid="snapchat-preview" className="bg-black text-white font-sans text-[14px] relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
           {mediaType === 'video' && mediaUrl ? (
-            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
             <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
           )}

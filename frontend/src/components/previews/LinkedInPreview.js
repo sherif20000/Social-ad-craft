@@ -2,6 +2,7 @@ import React from 'react';
 import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
 import { FaThumbsUp, FaRegComment, FaRetweet, FaEllipsis, FaGlobe } from 'react-icons/fa6';
 import { Send, ChevronLeft, ChevronRight } from 'lucide-react';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const LinkedInPreview = ({ adData }) => {
   const { brandName, caption, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -99,7 +100,7 @@ export const LinkedInPreview = ({ adData }) => {
       </div>
       <div className="w-full aspect-[1.91/1] bg-zinc-100 relative overflow-hidden">
         {mediaType === 'video' && mediaUrl ? (
-          <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+          <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
         ) : (
           <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
         )}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
 import { FaThumbsUp, FaComment, FaShare, FaEllipsis, FaGlobe } from 'react-icons/fa6';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const FacebookPreview = ({ adData }) => {
   const { brandName, caption, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -119,7 +120,7 @@ export const FacebookPreview = ({ adData }) => {
       </div>
       <div className="w-full aspect-square bg-zinc-100 relative overflow-hidden">
         {mediaType === 'video' || adFormat === 'video' ? (
-          <video src={displayMedia} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+          <AutoPlayVideo src={displayMedia} className="w-full h-full object-cover" />
         ) : (
           <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
         )}

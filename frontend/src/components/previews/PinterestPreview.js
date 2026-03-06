@@ -1,6 +1,7 @@
 import React from 'react';
 import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
 import { FaEllipsis, FaArrowUpFromBracket } from 'react-icons/fa6';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const PinterestPreview = ({ adData }) => {
   const { brandName, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -53,7 +54,7 @@ export const PinterestPreview = ({ adData }) => {
         <div className="rounded-2xl overflow-hidden shadow-sm border border-zinc-100">
           <div className="relative" style={{ aspectRatio: '2/3' }}>
             {mediaType === 'video' && mediaUrl ? (
-              <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+              <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
             ) : (
               <img src={displayMedia} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
             )}

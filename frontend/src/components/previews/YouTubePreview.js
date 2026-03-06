@@ -1,6 +1,7 @@
 import React from 'react';
 import { PLACEHOLDER_IMAGE, OBJECTIVES } from '@/lib/constants';
 import { FaThumbsUp, FaThumbsDown, FaShare, FaEllipsisVertical } from 'react-icons/fa6';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const YouTubePreview = ({ adData }) => {
   const { brandName, caption, headline, description, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat } = adData;
@@ -17,7 +18,7 @@ export const YouTubePreview = ({ adData }) => {
       <div data-testid="youtube-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
           {mediaType === 'video' && mediaUrl ? (
-            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
             <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
           )}
@@ -48,7 +49,7 @@ export const YouTubePreview = ({ adData }) => {
       <div data-testid="youtube-preview" className="bg-black font-sans text-[14px]">
         <div className="w-full aspect-video bg-zinc-900 relative overflow-hidden">
           {mediaType === 'video' && mediaUrl ? (
-            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
             <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
           )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
 import { FaRegComment, FaRetweet, FaRegHeart, FaChartSimple, FaArrowUpFromBracket, FaEllipsis } from 'react-icons/fa6';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const TwitterPreview = ({ adData }) => {
   const { brandName, brandHandle, caption, headline, ctaText, ctaLink, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -61,7 +62,7 @@ export const TwitterPreview = ({ adData }) => {
             <div className="rounded-2xl overflow-hidden border border-zinc-200 mb-0.5">
               <div className={`bg-zinc-100 relative overflow-hidden ${adFormat === 'video' ? 'aspect-video' : 'aspect-video'}`}>
                 {mediaType === 'video' && mediaUrl ? (
-                  <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+                  <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
                 ) : (
                   <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
                 )}

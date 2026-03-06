@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PLACEHOLDER_IMAGE, CAROUSEL_PLACEHOLDERS, OBJECTIVES } from '@/lib/constants';
 import { FaRegHeart, FaRegComment, FaRegBookmark, FaEllipsis } from 'react-icons/fa6';
 import { Send } from 'lucide-react';
+import { AutoPlayVideo } from '@/components/AutoPlayVideo';
 
 export const InstagramPreview = ({ adData }) => {
   const { brandName, brandHandle, caption, ctaText, mediaUrl, mediaType, profileImage, objective, adFormat, carouselCards } = adData;
@@ -45,7 +46,7 @@ export const InstagramPreview = ({ adData }) => {
       <div data-testid="instagram-preview" className="bg-black text-white font-sans relative" style={{ aspectRatio: '9/16', minHeight: '560px' }}>
         <div className="absolute inset-0">
           {mediaType === 'video' && mediaUrl ? (
-            <video src={mediaUrl} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            <AutoPlayVideo src={mediaUrl} className="w-full h-full object-cover" />
           ) : (
             <img src={displayMedia} alt="Ad" className="w-full h-full object-cover" crossOrigin="anonymous" />
           )}
