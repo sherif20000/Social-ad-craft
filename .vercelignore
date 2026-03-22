@@ -1,0 +1,5 @@
+backend/
+api/
+tests/
+test_reports/
+memory/
