@@ -1,17 +1,14 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { AdSidebar } from '@/components/AdSidebar';
 import { PreviewCanvas } from '@/components/PreviewCanvas';
 import { DEFAULT_AD_DATA, PLATFORM_FORMATS, OBJECTIVES } from '@/lib/constants';
 import { Toaster, toast } from '@/components/ui/sonner';
-import axios from 'axios';
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { useRef } from 'react';
 
 export default function Dashboard() {
   const [adData, setAdData] = useState(DEFAULT_AD_DATA);
   const [selectedPlatform, setSelectedPlatform] = useState('facebook');
   const [deviceMode, setDeviceMode] = useState('mobile');
-  const [isUploading, setIsUploading] = useState(false);
   const previewRef = useRef(null);
 
   const updateAdData = useCallback((field, value) => {
@@ -59,38 +56,21 @@ export default function Dashboard() {
     }));
   }, []);
 
-  const handleMediaUpload = useCallback(async (file) => {
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const response = await axios.post(`${API}/upload`, formData);
-      const mediaUrl = `${API}/files/${response.data.storage_path}`;
-      setAdData(prev => ({
-        ...prev,
-        mediaUrl,
-        mediaType: file.type.startsWith('video') ? 'video' : 'image',
-      }));
-      toast.success('Media uploaded successfully');
-    } catch (error) {
-      console.error('Upload failed:', error);
-      toast.error('Failed to upload media');
-    } finally {
-      setIsUploading(false);
-    }
+  // Uses browser-local object URL — no backend needed
+  const handleMediaUpload = useCallback((file) => {
+    const localUrl = URL.createObjectURL(file);
+    setAdData(prev => ({
+      ...prev,
+      mediaUrl: localUrl,
+      mediaType: file.type.startsWith('video') ? 'video' : 'image',
+    }));
+    toast.success('Media loaded');
   }, []);
 
-  const handleCarouselImageUpload = useCallback(async (file, cardIndex) => {
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const response = await axios.post(`${API}/upload`, formData);
-      const mediaUrl = `${API}/files/${response.data.storage_path}`;
-      updateCarouselCard(cardIndex, 'imageUrl', mediaUrl);
-      toast.success(`Card ${cardIndex + 1} image uploaded`);
-    } catch (error) {
-      toast.error('Upload failed');
-    }
+  const handleCarouselImageUpload = useCallback((file, cardIndex) => {
+    const localUrl = URL.createObjectURL(file);
+    updateCarouselCard(cardIndex, 'imageUrl', localUrl);
+    toast.success(`Card ${cardIndex + 1} image loaded`);
   }, [updateCarouselCard]);
 
   const handleClearMedia = useCallback(() => {
@@ -107,7 +87,7 @@ export default function Dashboard() {
             updateAdData={updateAdData}
             onMediaUpload={handleMediaUpload}
             onClearMedia={handleClearMedia}
-            isUploading={isUploading}
+            isUploading={false}
             selectedPlatform={selectedPlatform}
             onObjectiveChange={handleObjectiveChange}
             updateCarouselCard={updateCarouselCard}

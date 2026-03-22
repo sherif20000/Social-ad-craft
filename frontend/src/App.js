@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/share/:shareId" element={<SharePreview />} />
+        <Route path="/share" element={<SharePreview />} />
       </Routes>
     </BrowserRouter>
   );
