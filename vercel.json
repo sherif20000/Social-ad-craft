@@ -1,6 +1,5 @@
 {
-  "buildCommand": "cd frontend && yarn install && yarn build",
-  "outputDirectory": "frontend/build",
+  "rootDirectory": "frontend",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
