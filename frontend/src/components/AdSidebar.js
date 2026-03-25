@@ -204,7 +204,12 @@ export const AdSidebar = ({
         </Select>
         {!showCta && (
           <p className="text-[11px] text-amber-600 bg-amber-50 border border-amber-100 rounded-md px-2.5 py-1.5 font-medium">
-            {adData.objective === 'awareness' ? 'Reach ads typically don\'t show a CTA button' : 'Engagement ads focus on interactions, CTA is hidden'}
+            Reach / Awareness ads typically don't include a CTA button
+          </p>
+        )}
+        {adData.objective === 'engagement' && (
+          <p className="text-[11px] text-indigo-600 bg-indigo-50 border border-indigo-100 rounded-md px-2.5 py-1.5 font-medium">
+            Engagement ads work best with soft CTAs like "Send Message" or "Learn More"
           </p>
         )}
       </div>

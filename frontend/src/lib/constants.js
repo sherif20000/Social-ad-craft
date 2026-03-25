@@ -15,7 +15,7 @@ export const OBJECTIVES = [
   { id: 'sales', name: 'Sales / Conversions', hasCta: true, defaultCta: 'Shop Now' },
   { id: 'leads', name: 'Lead Generation', hasCta: true, defaultCta: 'Sign Up' },
   { id: 'awareness', name: 'Awareness / Reach', hasCta: false, defaultCta: '' },
-  { id: 'engagement', name: 'Engagement', hasCta: false, defaultCta: '' },
+  { id: 'engagement', name: 'Engagement', hasCta: true, defaultCta: 'Send Message' },
   { id: 'app_install', name: 'App Installs', hasCta: true, defaultCta: 'Install Now' },
   { id: 'video_views', name: 'Video Views', hasCta: true, defaultCta: 'Watch More' },
 ];
