@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useRef } from 'react';
 import { Upload, X, Loader2 } from 'lucide-react';
 
-export const MediaUploader = ({ onUpload, onClear, isUploading, currentMediaUrl, mediaType }) => {
+export const MediaUploader = ({ onUpload, onClear, isUploading, currentMediaUrl, mediaType, dimensionHint }) => {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef(null);
 
@@ -82,6 +82,9 @@ export const MediaUploader = ({ onUpload, onClear, isUploading, currentMediaUrl,
         {isUploading ? 'Uploading...' : 'Drop visuals here'}
       </p>
       <p className="text-xs text-zinc-400 mt-1">JPG, PNG, GIF, MP4, WebM</p>
+      {dimensionHint && (
+        <p className="text-xs text-indigo-500 font-medium mt-1.5">{dimensionHint}</p>
+      )}
     </div>
   );
 };

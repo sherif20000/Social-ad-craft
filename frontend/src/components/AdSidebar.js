@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { MediaUploader } from '@/components/MediaUploader';
 import { CharacterCounter } from '@/components/CharacterCounter';
-import { CTA_OPTIONS, OBJECTIVES, PLATFORM_FORMATS, PLATFORM_SPECS } from '@/lib/constants';
+import { CTA_OPTIONS, PLATFORM_CTA_OPTIONS, OBJECTIVES, PLATFORM_FORMATS, PLATFORM_SPECS } from '@/lib/constants';
 import { Sparkles, Plus, Trash2, Upload, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 
 const CarouselCardEditor = ({ card, index, onUpdate, onRemove, onImageUpload }) => {
@@ -82,11 +82,19 @@ export const AdSidebar = ({
   updateCarouselCard, addCarouselCard, removeCarouselCard, onCarouselImageUpload,
 }) => {
   const [showValidation, setShowValidation] = useState(false);
+  const profileInputRef = useRef(null);
+  const handleProfileImageUpload = useCallback((e) => {
+    const file = e.target?.files?.[0];
+    if (file) updateAdData('profileImage', URL.createObjectURL(file));
+  }, [updateAdData]);
   const currentObjective = OBJECTIVES.find(o => o.id === adData.objective);
   const showCta = currentObjective?.hasCta !== false;
   const formats = PLATFORM_FORMATS[selectedPlatform] || [];
   const isCarousel = adData.adFormat === 'carousel';
   const specs = PLATFORM_SPECS[selectedPlatform] || {};
+  const ctaOptions = PLATFORM_CTA_OPTIONS[selectedPlatform] || CTA_OPTIONS;
+  const dimensionHint = specs.dimensions?.[adData.adFormat];
+  const noClickthroughUrl = selectedPlatform === 'youtube' && adData.adFormat === 'bumper';
 
   const validationResults = useMemo(() => {
     if (!showValidation) return null;
@@ -97,14 +105,41 @@ export const AdSidebar = ({
     if (adData.brandName.trim()) passed.push('Brand Name');
     else errors.push('Brand Name is required');
 
-    if (adData.caption.trim()) passed.push('Caption');
-    else errors.push('Caption is required');
+    // Caption
+    if (!adData.caption.trim()) {
+      errors.push('Caption is required');
+    } else if (specs.caption?.max && adData.caption.length > specs.caption.max) {
+      errors.push(`Caption exceeds max length for this platform (${specs.caption.max} chars)`);
+    } else if (specs.caption?.recommended && adData.caption.length > specs.caption.recommended) {
+      warnings.push(`Caption is over recommended length (${specs.caption.recommended} chars) for this platform`);
+      passed.push('Caption present');
+    } else {
+      passed.push('Caption');
+    }
 
-    if (adData.headline.trim()) passed.push('Headline');
-    else warnings.push('Headline is recommended');
+    // Headline
+    if (!adData.headline.trim()) {
+      warnings.push('Headline is recommended');
+    } else if (specs.headline?.max && adData.headline.length > specs.headline.max) {
+      errors.push(`Headline exceeds max length for this platform (${specs.headline.max} chars)`);
+    } else if (specs.headline?.recommended && adData.headline.length > specs.headline.recommended) {
+      warnings.push(`Headline over recommended length (${specs.headline.recommended} chars) for this platform`);
+      passed.push('Headline present');
+    } else {
+      passed.push('Headline');
+    }
 
-    if (adData.description.trim()) passed.push('Description');
-    else warnings.push('Description is recommended');
+    // Description
+    if (!adData.description.trim()) {
+      warnings.push('Description is recommended');
+    } else if (specs.description?.max && adData.description.length > specs.description.max) {
+      errors.push(`Description exceeds max length for this platform (${specs.description.max} chars)`);
+    } else if (specs.description?.recommended && adData.description.length > specs.description.recommended) {
+      warnings.push(`Description over recommended length (${specs.description.recommended} chars) for this platform`);
+      passed.push('Description present');
+    } else {
+      passed.push('Description');
+    }
 
     if (isCarousel) {
       if (adData.carouselCards.length >= 2) passed.push(`${adData.carouselCards.length} Carousel Cards`);
@@ -128,7 +163,7 @@ export const AdSidebar = ({
     }
 
     return { errors, warnings, passed, isValid: errors.length === 0 };
-  }, [showValidation, adData, isCarousel, showCta]);
+  }, [showValidation, adData, isCarousel, showCta, specs]);
 
   return (
     <div data-testid="ad-sidebar" className="p-6 space-y-6">
@@ -220,14 +255,31 @@ export const AdSidebar = ({
             />
           </div>
           <div>
-            <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Profile Image URL</Label>
-            <Input
-              data-testid="profile-image-input"
-              value={adData.profileImage}
-              onChange={(e) => updateAdData('profileImage', e.target.value)}
-              placeholder="https://example.com/avatar.jpg"
-              className="h-10 bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20"
-            />
+            <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Profile Image</Label>
+            <div className="flex gap-2">
+              <Input
+                data-testid="profile-image-input"
+                value={adData.profileImage}
+                onChange={(e) => updateAdData('profileImage', e.target.value)}
+                placeholder="Paste URL or upload file..."
+                className="h-10 bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20"
+              />
+              <button
+                type="button"
+                onClick={() => profileInputRef.current?.click()}
+                className="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-zinc-50 border border-zinc-200 rounded-md hover:bg-zinc-100 transition-colors"
+                title="Upload image file"
+              >
+                <Upload className="w-4 h-4 text-zinc-500" />
+              </button>
+              <input
+                ref={profileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleProfileImageUpload}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -307,22 +359,28 @@ export const AdSidebar = ({
                   <SelectValue placeholder="Select CTA" />
                 </SelectTrigger>
                 <SelectContent>
-                  {CTA_OPTIONS.map(opt => (
+                  {ctaOptions.map(opt => (
                     <SelectItem key={opt} value={opt}>{opt}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Destination URL</Label>
-              <Input
-                data-testid="cta-link-input"
-                value={adData.ctaLink}
-                onChange={(e) => updateAdData('ctaLink', e.target.value)}
-                placeholder="yourbrand.com"
-                className="h-10 bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20"
-              />
-            </div>
+            {!noClickthroughUrl ? (
+              <div>
+                <Label className="text-xs font-semibold text-zinc-700 mb-1.5 block">Destination URL</Label>
+                <Input
+                  data-testid="cta-link-input"
+                  value={adData.ctaLink}
+                  onChange={(e) => updateAdData('ctaLink', e.target.value)}
+                  placeholder="yourbrand.com"
+                  className="h-10 bg-zinc-50 border-zinc-200 focus:border-indigo-500 focus:ring-indigo-500/20"
+                />
+              </div>
+            ) : (
+              <p className="text-[11px] text-amber-600 bg-amber-50 border border-amber-100 rounded-md px-2.5 py-1.5 font-medium">
+                YouTube Bumper ads (6s) don't support click-through URLs
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -337,6 +395,7 @@ export const AdSidebar = ({
             isUploading={isUploading}
             currentMediaUrl={adData.mediaUrl}
             mediaType={adData.mediaType}
+            dimensionHint={dimensionHint}
           />
         </div>
       )}

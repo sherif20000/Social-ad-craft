@@ -105,6 +105,18 @@ export const CTA_OPTIONS = [
   'Get Offer', 'Order Now', 'See Menu', 'Buy Tickets', 'Install Now',
 ];
 
+export const PLATFORM_CTA_OPTIONS = {
+  facebook: ['Shop Now', 'Learn More', 'Sign Up', 'Download', 'Book Now', 'Contact Us', 'Get Quote', 'Subscribe', 'Watch More', 'Apply Now', 'Get Offer', 'Order Now', 'See Menu', 'Buy Tickets', 'Install Now'],
+  instagram: ['Shop Now', 'Learn More', 'Sign Up', 'Download', 'Book Now', 'Contact Us', 'Subscribe', 'Watch More', 'Apply Now', 'Get Offer', 'Order Now', 'Install Now'],
+  twitter: ['Learn More', 'Sign Up', 'Download', 'Subscribe', 'Visit Site', 'Apply Now', 'Book Now', 'Shop Now', 'Watch More'],
+  linkedin: ['Learn More', 'Sign Up', 'Download', 'Subscribe', 'Apply Now', 'Request Demo', 'Register', 'Join Now', 'Contact Us', 'Get Quote'],
+  tiktok: ['Shop Now', 'Learn More', 'Sign Up', 'Download', 'Book Now', 'Subscribe', 'Watch More', 'Install Now', 'Order Now'],
+  youtube: ['Learn More', 'Sign Up', 'Get Offer', 'Subscribe', 'Visit Site', 'Book Now', 'Download', 'Shop Now'],
+  pinterest: ['Shop Now', 'Learn More', 'Sign Up', 'Book Now', 'Order Now', 'Get Offer', 'Subscribe', 'Visit Site'],
+  snapchat: ['Shop Now', 'Learn More', 'Sign Up', 'Download', 'Book Now', 'Subscribe', 'Watch More', 'Install Now'],
+  google: ['Learn More', 'Shop Now', 'Sign Up', 'Get Offer', 'Book Now', 'Download', 'Install Now', 'Subscribe', 'Get Quote'],
+};
+
 export const PLATFORM_SPECS = {
   facebook: {
     caption: { recommended: 125, max: 63206 },
