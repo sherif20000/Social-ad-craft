@@ -91,7 +91,7 @@ export const AdSidebar = ({
   const showCta = currentObjective?.hasCta !== false;
   const formats = PLATFORM_FORMATS[selectedPlatform] || [];
   const isCarousel = adData.adFormat === 'carousel';
-  const specs = PLATFORM_SPECS[selectedPlatform] || {};
+  const specs = useMemo(() => PLATFORM_SPECS[selectedPlatform] || {}, [selectedPlatform]);
   const ctaOptions = PLATFORM_CTA_OPTIONS[selectedPlatform] || CTA_OPTIONS;
   const dimensionHint = specs.dimensions?.[adData.adFormat];
   const noClickthroughUrl = selectedPlatform === 'youtube' && adData.adFormat === 'bumper';
