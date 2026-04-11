@@ -174,7 +174,7 @@ export const AdSidebar = ({
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-zinc-900">AdVantage Studio</h1>
+            <h1 className="text-xl font-bold tracking-tight text-zinc-900">Ad Craft</h1>
             <p className="text-xs text-zinc-400 font-medium">Ad preview & visualization</p>
           </div>
         </div>

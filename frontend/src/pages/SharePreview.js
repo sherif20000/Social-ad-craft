@@ -65,7 +65,7 @@ export default function SharePreview() {
   return (
     <div data-testid="share-preview-page" className="h-screen overflow-hidden bg-zinc-50 flex flex-col">
       <div className="bg-zinc-900 text-white text-center py-2.5 px-4 flex items-center justify-center gap-3 text-sm flex-shrink-0">
-        <span className="font-semibold">AdVantage Studio</span>
+        <span className="font-semibold">Ad Craft</span>
         <span className="text-zinc-400">—</span>
         <span className="text-zinc-300">Shared Ad Preview</span>
         <a href="/" className="ml-4 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1 rounded-md transition-colors">
